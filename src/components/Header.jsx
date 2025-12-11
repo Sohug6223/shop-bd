@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import './header.css';
+import './Header.css';
 
 export default function Header({ cart = [],searchTerm, setSearchTerm }) {
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
