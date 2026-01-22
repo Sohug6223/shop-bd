@@ -110,6 +110,17 @@
   }
 }
 
+.orders-page .start-shopping-link{
+  color: #2563eb;
+  text text-decoration: underline;
+  font: weight 600px;;
+  margin: left 8px;
+
+}
+.orders-page .start-shopping-link:hover{
+ color: #1d4ed8;
+}
+
 .orders-page .product-image-container {
   text-align: center;
 }
@@ -126,6 +137,11 @@
 
 .orders-page .product-delivery-date {
   margin-bottom: 3px;
+}
+
+.orders-page .product-delivery-date strong {
+  color: #047857;
+  font-weight: 700;
 }
 
 .orders-page .product-quantity {

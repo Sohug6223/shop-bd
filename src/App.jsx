@@ -1,71 +1,38 @@
-import { useState,useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Header from './components/Header';
+import MainLayout from './pages/MainLayout';
 import HomePage from './pages/HomePage';
 import  CheckoutPage from './pages/CheckoutPage';
 import OrdersPage from './pages/OrdersPage';
-import './App.css'
+import useOrders from './hooks/useOrders';
+
+
+import './App.css';
 
 
 function App() {
-  const [cart, setCart] = useState(() => {
-    const savedCart = localStorage.getItem('cart');
-    return savedCart ? JSON.parse(savedCart) : [];
-  });
-
-  const [orders, setOrders] = useState(() => {
-    const savedOrders = localStorage.getItem('orders');
-    return savedOrders ? JSON.parse(savedOrders) : [];
-  });
-
-  const [searchTerm, setSearchTerm] = useState('');
-
-  useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }, [cart]);
-
-  useEffect(() => {
-    localStorage.setItem('orders', JSON.stringify(orders));
-  }, [orders]);
-
-  const addToCart = (product) => {
-    setCart((prev) => {
-      const exists = prev.find(item => item.id === product.id);
-      if (exists) {
-        return prev.map(item =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
-      }
-      return [...prev, { ...product, quantity: 1 }];
-    });
-  };
-      const placeOrder = () => {
-    if (cart.length === 0) return;
-
-    const newOrder = {
-      id: 'ORD-' + Date.now(),
-      orderTime: new Date().toISOString(),
-      totalPrice: cart.reduce((sum, item) => sum + (item.price) * item.quantity, 0),
-      items: [...cart]
-    };
-
-    setOrders(prev => [newOrder, ...prev]);  
-    setCart([]);  
-  };
-      
+  console.log('App rendered');
+ 
+  
+  const {orders,placeOrder,placing,error} = useOrders();
+  
   return (
     <>
-    <Header cart={cart} searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-     <Routes>
+    
+   <Routes>
+  <Route element={<MainLayout />}>
 
-    <Route path="/" element={<HomePage addToCart={addToCart} cart={cart} searchTerm={searchTerm} />} />
+    <Route path="/" element={<HomePage />} />
+  
+  <Route path="/orders" element={<OrdersPage orders={orders}/>} />
+  </Route>
 
-    <Route path="/checkout" element={<CheckoutPage cart={cart} setCart={setCart} placeOrder={placeOrder}/>} />
 
-    <Route path="/orders" element={<OrdersPage orders={orders} />} />
-    </Routes>
+   <Route path="/checkout" element={<CheckoutPage placeOrder={placeOrder} placing={placing} 
+   error={error}
+   />} />
+
+   </Routes>
+
     </>
    
   )

@@ -1,0 +1,13 @@
+import { useContext } from "react";
+import CartContext from "./CartContext";
+
+
+export default function useCartContext()
+{
+    const context = useContext(CartContext);
+
+    if(!context){
+        throw new Error('useCartContext must be used inside CartProvider');
+    }
+    return context;
+}

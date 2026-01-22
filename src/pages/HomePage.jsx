@@ -1,72 +1,45 @@
-import { useState } from 'react';
-import { products } from '../../starting-code/data/products';
+import { memo } from 'react';
+import { useOutletContext } from 'react-router-dom';
+import  useCartContext  from '../context/useCartContext';
+import useProducts from '../hooks/useProducts';
+import ProductCart from '../components/ProductCart';
 import './HomePage.css';
 
-export default function HomePage({ addToCart, searchTerm='' }) {
-  const filteredProducts = products.filter(product =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+function HomePage() {
+  console.log('HomePage rendered');
 
-  const [addedProductId, setAddedProductId] = useState(null);
+  const { searchTerm } = useOutletContext();
+  const{addToCart}=useCartContext();
+  const { products, loading, error } = useProducts(searchTerm);
 
-  const handleAddToCart = (product) => {
-    addToCart(product);
-    setAddedProductId(product.id);
-    setTimeout(() => setAddedProductId(null), 2000);
-  };
+  if (loading) {
+    return <div className="loading">Loading products...</div>;
+  }
+
+  if(error){
+    return <div className="error">{error}</div>
+  }
 
   return (
     <div className="home-page">
+      
       <div className="products-grid">
-        {filteredProducts.length === 0 ? (
+        {products.length === 0 ? (
           <div className="no-results">
             No products found for "{searchTerm}"
           </div>
         ) : (
-          filteredProducts.map((product) => (
-            <div key={product.id} className="product-container">
-              <div className="product-image-container">
-                <img className="product-image" src={product.image} alt={product.name} />
-              </div>
-
-              <div className="product-name limit-text-to-2-lines">{product.name}</div>
-
-              <div className="product-rating-container">
-                <img
-                  className="product-rating-stars"
-                  src={`images/ratings/rating-${product.rating.stars * 10}.png`}
-                  alt="rating"
-                />
-                <div className="product-rating-count link-primary">
-                  {product.rating.count}
-                </div>
-              </div>
-
-              <div className="product-price">
-                {(product.price)} tk
-              </div>
-
-              <div className="product-quantity-container">
-             
-              </div>
-
-              
-
-              <div className={`added-to-cart ${addedProductId === product.id ? 'visible' : ''}`}>
-                <img src="/images/icons/checkmark.png" alt="Added" />
-                Added
-              </div>
-
-              <button
-                className="add-to-cart-button button-primary"
-                onClick={() => handleAddToCart(product)}
-              >
-                Add to Cart
-              </button>
-            </div>
+          products.map(product => (
+            <ProductCart
+              key={product.id}
+              product={product}
+              onAddToCart={addToCart}
+            />
           ))
         )}
       </div>
     </div>
   );
 }
+
+export default memo(HomePage);

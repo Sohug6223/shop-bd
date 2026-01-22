@@ -59,12 +59,15 @@
   }
 }
 
-.checkout-page .delivery-date {
-  color: rgb(25, 135, 84);
-  font-weight: 700;
-  font-size: 19px;
-  margin-top: 5px;
-  margin-bottom: 22px;
+.checkout-page .delivery-date.info-text {
+  background-color: #f0f9ff;
+  color: #1e40af;
+  padding: 12px 16px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  border-left: 4px solid #3b82f6;
+  text-align: center;
 }
 
 .checkout-page .cart-item-details-grid {
@@ -139,6 +142,48 @@
   font-size: 15px;
 }
 
+.free-shipping-badge {
+  margin-left: 10px;
+  padding: 3px 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #067d62;
+  background-color: #e6f4f1;
+  border-radius: 12px;
+  white-space: nowrap;
+}
+
+.free-shipping-banner {
+  margin-bottom: 16px;
+  padding: 12px 16px;
+
+  background-color: #e6f4f1;
+  border: 1px solid #b7e4d6;
+  border-radius: 6px;
+
+  color: #067d62;
+  font-size: 14px;
+  font-weight: 600;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.shipping-cost {
+  margin-left: 10px;
+  font-size: 12px;
+  color: #555;
+}
+
+.shipping-hint {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #067d62;
+}
+
+
+
 .checkout-page .payment-summary-title {
   font-weight: 700;
   font-size: 18px;
@@ -183,4 +228,41 @@
 
   margin-top: 20px;
   margin-bottom: 19px;
+}
+
+.checkout-page .quantity-btn{
+  background-color: #f8f9fa;
+  border: none;
+  padding: 8px 15px;
+  cursor: pointer;
+  font-size: 18px;
+  
+}
+
+.checkout-page .quantity-btn:hover{
+  background-color: #e9ecef;
+}
+
+.checkout-page .quantity-display{
+  padding: 8px 20px;
+  min-width: 40px;
+  text-align: center;
+  font-weight: bold;
+  background-color: #fff;
+}
+
+.checkout-page .remove-item{
+  background-color: #ff4d4f;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 10px;
+
+}
+
+.checkout-page .remove-item:hover{
+  background-color: #e6393b;
 }

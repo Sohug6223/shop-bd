@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "devnet":"vite --host",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
@@ -28,3 +29,5 @@
     "vite": "^7.2.4"
   }
 }
+
+
